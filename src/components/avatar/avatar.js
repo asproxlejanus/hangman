@@ -51,15 +51,15 @@ const UserProfile = ({ name, gender, score }) => {
         setImageProfile(avatarImages[0].imageLink);
         break;
       case "male":
-        setImageProfile(avatarImages[1].imageLink);
+        setImageProfile(avatarImages[2].imageLink);
         break;
       case "non-binary":
-        setImageProfile(avatarImages[2].imageLink);
+        setImageProfile(avatarImages[1].imageLink);
         break;
       default:
         break;
     }
-  }, []);
+  }, [name]);
 
   return (
     <div className="ui card">

@@ -4,7 +4,36 @@ import UserProfile from "./components/avatar/avatar";
 import { Dropdown } from "./components/dropdown/dropdown";
 import styled from "styled-components";
 
-const GameStartWrapper = styled.div``;
+const GameStartWrapper = styled.div`
+  position: fixed;
+  top: 20%;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  width: 300px;
+  min-height: 200px;
+  height: auto;
+  border: 1px solid gainsboro;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.5);
+
+  > div input {
+    width: 100%;
+  }
+`;
+
+const GameContainer = styled.div`
+  margin: 20px auto;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  align-items: center;
+`;
 
 const SCORE = {
   wins: 0,
@@ -18,16 +47,16 @@ const GENDEROPTIONS = [
 ];
 
 const App = () => {
-  const [userName, setUserName] = useState("");
-  const [gender, setGender] = useState(GENDEROPTIONS[0]);
-  const [isLogged, setIsLogged] = useState(false);
+  const [userName, setUserName] = useState("Tiago");
+  const [gender, setGender] = useState(GENDEROPTIONS[2]);
+  const [isLogged, setIsLogged] = useState(true);
   const [score, setScore] = useState({ ...SCORE });
 
   if (!isLogged)
     return (
-      <div className="ui form success">
+      <GameStartWrapper>
         <div className="field">
-          <label>Which is your username?</label>
+          <label className="label">Which is your username?</label>
           <input
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
@@ -45,19 +74,18 @@ const App = () => {
         <button className="ui submit button" onClick={() => setIsLogged(true)}>
           Enviar
         </button>
-      </div>
+      </GameStartWrapper>
     );
   if (isLogged)
     return (
-      <div className="ui grid">
-        <div className="sixteen wide column"></div>
+      <GameContainer className="ui grid">
         <div className="ten wide column">
           <Gameplay setScore={setScore} score={score} />
         </div>
-        <div className="six wide column">
-          <UserProfile name={userName} gender={gender} score={score} />
+        <div className="four wide column">
+          {/* <UserProfile name={userName} gender={gender} score={score} /> */}
         </div>
-      </div>
+      </GameContainer>
     );
 };
 

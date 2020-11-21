@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import alphabet from "./lib/alphabet";
 import fruits from "./lib/fruits";
+import { Character } from "./lib/char";
 
 const style = {
   alphabetContainer: {
@@ -16,6 +17,11 @@ const style = {
     height: 60,
   },
 };
+
+const GameContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const GamePlay = ({ setScore, score }) => {
   const [randonWord, setRandonWord] = useState("banana");
@@ -113,12 +119,7 @@ const GamePlay = ({ setScore, score }) => {
   };
 
   return (
-    <>
-      {(gameWin || gameOver) && (
-        <PopUp onNewGame={newGame}>
-          {gameWin ? "You're a winner baby" : "You're a Loser"}
-        </PopUp>
-      )}
+    <GameContainer>
       <div className="ui segments">
         <div className="ui segment">
           <div className="ui grid">
@@ -172,7 +173,13 @@ const GamePlay = ({ setScore, score }) => {
           </div>
         </div>
       </div>
-    </>
+      <Character />
+      {(gameWin || gameOver) && (
+        <PopUp onNewGame={newGame}>
+          {gameWin ? "You're a winner baby" : "You loose"}
+        </PopUp>
+      )}
+    </GameContainer>
   );
 };
 
@@ -215,7 +222,7 @@ const PopUp = ({ children, onNewGame }) => {
             onClick={() => onNewGame()}
             className="ui button primary"
           >
-            <i class="play circle icon"></i> Play again
+            <i className="play circle icon" /> Play again
           </button>
         </div>
       </StyledPopUp>
