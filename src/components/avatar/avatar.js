@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
 /* const Headlines = [
   { wins: 0, text: "A person who never won a this game" },
@@ -7,8 +8,33 @@ import React, { useEffect, useState } from "react";
   { lose: 1, text: "A person who never won" },
 ];
  */
-const UserProfile = ({ name, score }) => {
+
+const avatarImages = [
+  {
+    gender: "female",
+    imageLink: "https://semantic-ui.com/images/avatar2/large/molly.png",
+  },
+  {
+    gender: "non-binary",
+    imageLink: "https://semantic-ui.com/images/avatar2/large/elyse.png",
+  },
+  {
+    gender: "male",
+    imageLink: "https://semantic-ui.com/images/avatar2/large/matthew.png",
+  },
+];
+
+const ScoreContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  > div:last-of-type {
+    margin: 0px 10px;
+  }
+`;
+const UserProfile = ({ name, gender, score }) => {
   const [percentage, setPercentage] = useState(0);
+  const [imageProfile, setImageProfile] = useState("");
 
   useEffect(() => {
     ((score) => {
@@ -19,13 +45,26 @@ const UserProfile = ({ name, score }) => {
     })(score);
   }, [score]);
 
+  useEffect(() => {
+    switch (gender.value) {
+      case "female":
+        setImageProfile(avatarImages[0].imageLink);
+        break;
+      case "male":
+        setImageProfile(avatarImages[1].imageLink);
+        break;
+      case "non-binary":
+        setImageProfile(avatarImages[2].imageLink);
+        break;
+      default:
+        break;
+    }
+  }, []);
+
   return (
     <div className="ui card">
       <div className="image">
-        <img
-          src="https://semantic-ui.com/images/avatar2/large/matthew.png"
-          alt="User"
-        />
+        <img src={imageProfile} alt="User" />
       </div>
       <div className="content">
         <a className="header">{name}</a>
@@ -34,7 +73,17 @@ const UserProfile = ({ name, score }) => {
         </div>
       </div>
       <div className="extra content">
-        Wins: {score.wins}, Lose: {score.lose}
+        <h4>Score:</h4>
+        <ScoreContainer>
+          <div>
+            <i className="thumbs up icon" />
+            Wins: {score.wins}
+          </div>
+          <div>
+            <i className="thumbs down icon" />
+            Loss: {score.lose}
+          </div>
+        </ScoreContainer>
       </div>
     </div>
   );

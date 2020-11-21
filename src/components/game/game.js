@@ -171,13 +171,6 @@ const GamePlay = ({ setScore, score }) => {
             })}
           </div>
         </div>
-
-        <div className="ui segment">
-          <p>Middle</p>
-        </div>
-        <div className="ui segment">
-          <p>Bottom</p>
-        </div>
       </div>
     </>
   );
@@ -222,48 +215,9 @@ const PopUp = ({ children, onNewGame }) => {
             onClick={() => onNewGame()}
             className="ui button primary"
           >
-            New Game
+            <i class="play circle icon"></i> Play again
           </button>
         </div>
-        {/*       if (gameOver) return (
-      <div
-        className="ui segment"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-        }}
-      >
-        <h4 style={{ textAlign: "center" }}>You loser!</h4>
-        <button
-          style={{ margin: "auto" }}
-          onClick={() => newGame()}
-          className="ui button primary"
-        >
-          Try Again
-        </button>
-      </div>
-      ); if (gameWin) return (
-      <div
-        className="ui segment"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-        }}
-      >
-        <h4 style={{ textAlign: "center" }}>
-          Congratulations! You're a winner!
-        </h4>
-        <button
-          style={{ margin: "auto" }}
-          onClick={() => newGame()}
-          className="ui button primary"
-        >
-          New Game
-        </button>
-      </div> 
-      ); */}
       </StyledPopUp>
     </PopUpContainer>
   );
