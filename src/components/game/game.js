@@ -111,7 +111,6 @@ const GamePlay = ({ setScore, score }) => {
 
   const newGame = () => {
     setGameOver(false);
-    console.log(fruits[getRandomNumber(0, FRUITSLENGHT)]);
     setRandonWord(fruits[getRandomNumber(0, FRUITSLENGHT)]);
     setPoints(5);
     setRenderedAlphabet([...alphabet]);
@@ -173,7 +172,7 @@ const GamePlay = ({ setScore, score }) => {
           </div>
         </div>
       </div>
-      <Character />
+      <Character points={points} />
       {(gameWin || gameOver) && (
         <PopUp onNewGame={newGame}>
           {gameWin ? "You're a winner baby" : "You loose"}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Head from "./images/head/head-states";
 import Body from "./images/body/body-states";
@@ -15,98 +15,110 @@ const CharContainer = styled.div`
   align-items: center;
 
   > .char-head {
-    width: 80px;
+    width: 100px;
     height: 100px;
-    background-image: url(${Head.normal});
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
     z-index: 30;
+    text-aling: center;
+    left: 25px;
+    position: relative;
+    top: -10px;
   }
 
   > .char-body-container {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    justify-content: center;
   }
   > .char-body-container > .char-left-hand {
-    border-top-left-radius: 60px;
-    border-top-right-radius: 0px;
     width: 25px;
     height: 75px;
     position: relative;
     top: -20px;
     left: 32px;
-    background-image: url(${LeftArm.normal});
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
   }
   > .char-body-container > .char-body {
     position: relative;
     top: -25px;
     width: 120px;
     height: 80px;
-    background-image: url(${Body.normal});
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
     z-index: 25;
   }
   > .char-body-container > .char-right-hand {
     width: 25px;
     height: 75px;
     position: relative;
-    width: 25px;
-    height: 75px;
     top: -20px;
-    right: 32px;
-    background-image: url(${RightArm.normal});
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    left: 5px;
   }
   > .char-legs {
     display: flex;
     flex-direction: row;
+    justify-content: center;
   }
   > .char-legs > .char-left-leg {
-    border-top-left-radius: 3px;
-    border-top-right-radius: 5px;
-    width: 40px;
-    height: 100px;
+    width: 30px;
+    height: 80px;
     position: relative;
-    top: -38px;
-    right: -2px;
-    background-image: url(${RightLeg.normal});
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    top: -10px;
+    right: 10px;
   }
   > .char-legs > .char-right-leg {
+    width: 30px;
+    height: 80px;
+    position: relative;
+    top: -15px;
+    left: 10px;
+  }
+  * .display-leg-none {
     width: 40px;
     height: 100px;
-    position: relative;
-    top: -38px;
-    left: -2px;
-    background-image: url(${LeftLeg.normal});
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+  }
+  * .display-arms-none {
+    width: 25px;
+    height: 75px;
+  }
+  * .display-body-none {
+    width: 120px;
+    height: 80px;
   }
 `;
 
-export const Character = () => {
+export const Character = ({ points }) => {
+  const [bodyState, setBodyState] = useState(Head.normal);
+
+  useEffect(() => {
+    if (points <= 5) setBodyState(Head.normal);
+    if (points <= 4) setBodyState(Head.worried);
+    if (points <= 3) setBodyState(Head.crying);
+    if (points <= 2) setBodyState(Head.crying2);
+    if (points <= 1) setBodyState(Head.crying);
+    if (points < 1) setBodyState(Head.crying3);
+  }, [points]);
+
   return (
     <CharContainer className="char-container">
-      <div className="char-head"></div>
+      <div className="char-head">
+        <img src={bodyState} alt="Head" />
+      </div>
       <div className="char-body-container">
-        <div className="char-left-hand"></div>
-        <div className="char-body"></div>
-        <div className="char-right-hand"></div>
+        <div className="char-left-hand">
+          {points < 2 ? null : <img src={LeftArm.normal} alt="Left Arm" />}
+        </div>
+        <div className="char-body">
+          {points <= 1 ? null : <img src={Body.normal} alt="Body" />}
+        </div>
+        <div className="char-right-hand">
+          {points < 3 ? null : <img src={RightArm.normal} alt="Right Arm" />}
+        </div>
       </div>
       <div className="char-legs">
-        <div className="char-left-leg"></div>
-        <div className="char-right-leg"></div>
+        <div className="char-left-leg">
+          {points < 4 ? null : <img src={RightLeg.normal} alt="Right Leg" />}
+        </div>
+        <div className="char-right-leg">
+          {points < 5 ? null : <img src={LeftLeg.normal} alt="Right Leg" />}
+        </div>
       </div>
     </CharContainer>
   );
